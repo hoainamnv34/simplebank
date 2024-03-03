@@ -31,4 +31,10 @@ sqlc:
 test:
 	go test -v -cover ./...
 
-.PHONY: createdb dropdb postgres pgadmin rm_container migrate_up migrate_down test
+server:
+	go run main.go
+
+mock:
+	mockgen -destination db/mock/store.go -package mockdb  simplebank/db/sqlc Store
+
+.PHONY: createdb dropdb postgres pgadmin rm_container migrate_up migrate_down test server mock
