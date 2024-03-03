@@ -32,3 +32,12 @@ type Transfer struct {
 	Amount    int64     `db:"amount"`
 	CreatedAt time.Time `db:"created_at"`
 }
+
+type User struct {
+	Username          string    `db:"username"`
+	HashedPassword    string    `db:"hashed_password"`
+	FullName          string    `db:"full_name"`
+	Email             string    `db:"email"`
+	PasswordChangedAt time.Time `db:"password_changed_at"`
+	CreatedAt         time.Time `db:"created_at"`
+}
