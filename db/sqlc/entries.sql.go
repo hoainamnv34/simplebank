@@ -20,8 +20,8 @@ RETURNING id, account_id, amount, created_at
 `
 
 type CreateEntryParams struct {
-	AccountID int64 `db:"account_id"`
-	Amount    int64 `db:"amount"`
+	AccountID int64 `db:"account_id" json:"account_id"`
+	Amount    int64 `db:"amount" json:"amount"`
 }
 
 func (q *Queries) CreateEntry(ctx context.Context, arg CreateEntryParams) (Entry, error) {
@@ -61,8 +61,8 @@ OFFSET $2
 `
 
 type ListEntriesParams struct {
-	Limit  int32 `db:"limit"`
-	Offset int32 `db:"offset"`
+	Limit  int32 `db:"limit" json:"limit"`
+	Offset int32 `db:"offset" json:"offset"`
 }
 
 func (q *Queries) ListEntries(ctx context.Context, arg ListEntriesParams) ([]Entry, error) {

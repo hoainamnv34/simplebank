@@ -21,10 +21,10 @@ INSERT INTO users (
 `
 
 type CreateUserParams struct {
-	Username       string `db:"username"`
-	HashedPassword string `db:"hashed_password"`
-	FullName       string `db:"full_name"`
-	Email          string `db:"email"`
+	Username       string `db:"username" json:"username"`
+	HashedPassword string `db:"hashed_password" json:"hashed_password"`
+	FullName       string `db:"full_name" json:"full_name"`
+	Email          string `db:"email" json:"email"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
