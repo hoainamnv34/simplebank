@@ -19,11 +19,12 @@ func TestJWTMaker(t *testing.T) {
 	issuedAt := time.Now()
 	expireAt := issuedAt.Add(duration)
 
-	token, err := maker.CreateToken(username, duration)
+	token, payload, err := maker.CreateToken(username, duration)
 	require.NoError(t, err)
 	require.NotEmpty(t, token)
+	require.NotEmpty(t, payload)
 
-	payload, err := maker.VerifyToken(token)
+	payload, err = maker.VerifyToken(token)
 	require.NoError(t, err)
 	require.Equal(t, username, payload.Username)
 	require.WithinDuration(t, expireAt, payload.ExpiredAt, time.Second)
@@ -34,12 +35,13 @@ func TestExpiredJWTToken(t *testing.T) {
 	maker, err := NewJWTMaker(util.RandomString(32))
 	require.NoError(t, err)
 
-	token, err := maker.CreateToken(util.RandomOwner(), -time.Minute)
+	token, payload, err := maker.CreateToken(util.RandomOwner(), -time.Minute)
 
 	require.NoError(t, err)
 	require.NotEmpty(t, token)
+	require.NotEmpty(t, payload)
 
-	payload, err := maker.VerifyToken(token)
+	payload, err = maker.VerifyToken(token)
 	require.Nil(t, payload)
 
 	require.EqualError(t, err, errors.New("token has invalid claims: token is expired").Error())
