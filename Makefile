@@ -1,4 +1,8 @@
 
+
+DB_URL=postgresql://root:secret@localhost:3005/simple_bank?sslmode=disable
+
+
 postgres:
 	docker run --name postgres -p 3005:5432 --rm -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:12-alpine
 
@@ -16,16 +20,16 @@ createdb:
 	docker exec -it postgres createdb --username=root --owner=root simple_bank
 
 migrate_up:
-	migrate -path db/migration/ -database "postgresql://root:secret@localhost:3005/simple_bank?sslmode=disable" -verbose up
+	migrate -path db/migration/ -database "$(DB_URL)" -verbose up
 
 migrate_up1:
-	migrate -path db/migration/ -database "postgresql://root:secret@localhost:3005/simple_bank?sslmode=disable" -verbose up 1
+	migrate -path db/migration/ -database "$(DB_URL)" -verbose up 1
 
 migrate_down:
-	migrate -path db/migration/ -database "postgresql://root:secret@localhost:3005/simple_bank?sslmode=disable" -verbose down
+	migrate -path db/migration/ -database "$(DB_URL)" -verbose down
 
 migrate_down1:
-	migrate -path db/migration/ -database "postgresql://root:secret@localhost:3005/simple_bank?sslmode=disable" -verbose down 1
+	migrate -path db/migration/ -database "$(DB_URL)" -verbose down 1
 
 dropdb:
 	docker exec -it postgres dropdb simple_bank
@@ -46,4 +50,15 @@ mock:
 new_migration:
 	migrate create -ext sql -dir db/migration -seq $(name)
 
-.PHONY: createdb dropdb postgres pgadmin rm_container migrate_up migrate_down migrate_up1 migrate_down1 test server mock
+
+proto:
+	rm -f pb/*.go
+	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
+	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pb  --grpc-gateway_opt=paths=source_relative \
+	proto/*.proto
+
+evans:
+	evans --host localhost --port 9090 -r repl
+
+.PHONY: createdb dropdb postgres pgadmin rm_container migrate_up migrate_down migrate_up1 migrate_down1 test server mock proto evans
