@@ -5,21 +5,26 @@ go 1.22.1
 require (
 	github.com/aead/chacha20poly1305 v0.0.0-20201124145622-1a5aba2a8b29
 	github.com/golang-jwt/jwt/v5 v5.2.0
-	github.com/golang/protobuf v1.5.3
+	github.com/golang-migrate/migrate/v4 v4.17.0
+	github.com/golang/protobuf v1.5.4
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/lib/pq v1.10.9
 	github.com/o1egl/paseto v1.0.0
+	github.com/rakyll/statik v0.1.7
+	github.com/rs/zerolog v1.32.0
+	google.golang.org/genproto/googleapis/api v0.0.0-20240125205218-1f4bbc51befe
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240125205218-1f4bbc51befe
 	google.golang.org/grpc v1.61.0
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
 )
 
 require (
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/aead/poly1305 v0.0.0-20180717145839-3fee0db0b635 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	google.golang.org/genproto v0.0.0-20240116215550-a9fa1716bcac // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20240125205218-1f4bbc51befe // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240125205218-1f4bbc51befe // indirect
 )
 
 require (
@@ -67,7 +72,7 @@ require (
 	golang.org/x/net v0.21.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	google.golang.org/protobuf v1.32.0
+	google.golang.org/protobuf v1.33.0
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
